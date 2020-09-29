@@ -1,0 +1,29 @@
+.log-in {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.log-in__button {
+	padding: 4px 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 13px;
+	font-weight: 600;
+	margin-left: 10px;
+}
+.log-in__button-group {
+	margin: 10px;
+	display: flex;
+}
+
+.log-in__prompt {
+	font-size: 12px;
+	text-align: center;
+}
+
+.log-in__link-span {
+	color: #006494;
+	cursor: pointer;
+}

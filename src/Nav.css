@@ -1,0 +1,13 @@
+.nav {
+	background-color: #fed766;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	width: 100vw;
+}
+
+.nav__title {
+	padding-left: 12px;
+	color: #13293d;
+	font-weight: 600;
+}
