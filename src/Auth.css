@@ -1,10 +1,10 @@
-.log-in {
+.Auth {
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
 }
 
-.log-in__button {
+.Auth__button {
 	padding: 4px 10px;
 	border: 1px solid black;
 	border-radius: 5px;
@@ -13,17 +13,17 @@
 	font-weight: 600;
 	margin-left: 10px;
 }
-.log-in__button-group {
+.Auth__button-group {
 	margin: 10px;
 	display: flex;
 }
 
-.log-in__prompt {
+.Auth__prompt {
 	font-size: 12px;
 	text-align: center;
 }
 
-.log-in__link-span {
+.Auth__link-span {
 	color: #006494;
 	cursor: pointer;
 }

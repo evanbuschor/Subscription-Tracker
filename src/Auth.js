@@ -90,7 +90,7 @@ const Auth = () => {
 			<label>Email:</label>
 
 			<input
-				className="log-in__input"
+				className="Auth__input"
 				value={email}
 				onChange={(e) => {
 					setEmail(e.target.value);
@@ -101,7 +101,7 @@ const Auth = () => {
 			<label>Password:</label>
 
 			<input
-				className="log-in__input"
+				className="Auth__input"
 				value={password}
 				onChange={(e) => {
 					setPassword(e.target.value);
@@ -109,10 +109,10 @@ const Auth = () => {
 				type="password"></input>
 			<p>{passwordError}</p>
 
-			<div className="log-in__button-group">
+			<div className="Auth__button-group">
 				{hasAccount ? (
 					<button
-						className="log-in__button"
+						className="Auth__button"
 						onClick={(e) => {
 							handleLogin();
 						}}>
@@ -120,7 +120,7 @@ const Auth = () => {
 					</button>
 				) : (
 					<button
-						className="log-in__button"
+						className="Auth__button"
 						onClick={(e) => {
 							handleSignup();
 						}}>
@@ -130,26 +130,26 @@ const Auth = () => {
 			</div>
 
 			{hasAccount ? (
-				<p className="log-in__prompt">
+				<p className="Auth__prompt">
 					Not a User?{" "}
 					<span
-						className="log-in__link-span"
+						className="Auth__link-span"
 						onClick={toggleHasAccount}>
 						Sign up
 					</span>
 				</p>
 			) : (
-				<p className="log-in__prompt">
+				<p className="Auth__prompt">
 					Already a user?{" "}
 					<span
-						className="log-in__link-span"
+						className="Auth__link-span"
 						onClick={toggleHasAccount}>
 						Log in
 					</span>
 				</p>
 			)}
 
-			<button className="log-in__button" onClick={handleLogout}>
+			<button className="Auth__button" onClick={handleLogout}>
 				Log Out
 			</button>
 			<span>log in status: {user.email}</span>
