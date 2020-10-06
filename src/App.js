@@ -1,18 +1,29 @@
 import React from "react";
-import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Nav from "./Nav";
-import Main from "./Main";
+
+import "./App.css";
+
+import Nav from "./Nav.js";
+import Auth from "./Auth.js";
+import Home from "./Home.js";
+import PrivateRoute from "./PrivateRoute.js";
+
+import AuthContext from "./context/AuthContext.js";
 
 function App() {
 	return (
-		<div className="app">
-			<Nav />
-			<Router>
-				<Route></Route>
-			</Router>
-			<Main />
-		</div>
+		<AuthContext.Provider value={{ isAuthenticated: false }}>
+			<div className="app">
+				<Nav />
+				<Router>
+					<PrivateRoute
+						exact
+						path="/"
+						component={Home}></PrivateRoute>
+					<Route exact path="/login" component={Auth}></Route>
+				</Router>
+			</div>
+		</AuthContext.Provider>
 	);
 }
 
