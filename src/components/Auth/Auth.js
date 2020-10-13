@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Auth.css";
-import fire from "./fire";
+import firebaseApp from "../../Utilities/fire";
 
 const Auth = () => {
 	const [user, setUser] = useState("");
@@ -25,9 +25,9 @@ const Auth = () => {
 	};
 
 	const handleLogin = () => {
-		console.log(email, password);
 		clearErrors();
-		fire.auth()
+		firebaseApp
+			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.catch((error) => {
 				console.log(error);
@@ -43,12 +43,12 @@ const Auth = () => {
 						break;
 				}
 			});
-		console.log(fire.auth.user);
 	};
 
 	const handleSignup = () => {
 		clearErrors();
-		fire.auth()
+		firebaseApp
+			.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.catch((error) => {
 				// eslint-disable-next-line default-case
@@ -65,7 +65,7 @@ const Auth = () => {
 	};
 
 	const authListener = () => {
-		fire.auth().onAuthStateChanged((user) => {
+		firebaseApp.auth().onAuthStateChanged((user) => {
 			if (user) {
 				clearInputs();
 				setUser(user);
@@ -79,10 +79,10 @@ const Auth = () => {
 
 	useEffect(() => {
 		authListener();
-	});
+	}, []);
 
 	const handleLogout = () => {
-		fire.auth().signOut();
+		firebaseApp.auth().signOut();
 	};
 
 	return (
@@ -129,25 +129,12 @@ const Auth = () => {
 				)}
 			</div>
 
-			{hasAccount ? (
-				<p className="Auth__prompt">
-					Not a User?{" "}
-					<span
-						className="Auth__link-span"
-						onClick={toggleHasAccount}>
-						Sign up
-					</span>
-				</p>
-			) : (
-				<p className="Auth__prompt">
-					Already a user?{" "}
-					<span
-						className="Auth__link-span"
-						onClick={toggleHasAccount}>
-						Log in
-					</span>
-				</p>
-			)}
+			<p className="Auth__prompt">
+				{hasAccount ? "Not a user? " : "Already a user? "}
+				<span className="Auth__link-span" onClick={toggleHasAccount}>
+					{hasAccount ? "Sign up" : "Log in"}
+				</span>
+			</p>
 
 			<button className="Auth__button" onClick={handleLogout}>
 				Log Out
