@@ -6,15 +6,15 @@ import { AuthContext } from "../context/AuthContext.js";
 const Nav = () => {
 	const { user } = useContext(AuthContext);
 
-	function logoutButton() {
-		return !user ? <button className></button> : <div>hello</div>;
-	}
+	const logoutButton = () =>
+		!!user && <button className="nav__logout-button">Log Out</button>;
+
 	return (
 		<div className="nav">
 			<Link to="/">
 				<h2 className="nav__title">Subscription Tracker</h2>
 			</Link>
-			{logoutButton}
+			{logoutButton()}
 		</div>
 	);
 };

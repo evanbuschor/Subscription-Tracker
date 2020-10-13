@@ -13,7 +13,7 @@ WebFont.load({
 ReactDOM.render(
 	<React.StrictMode>
 		<AuthContextProvider>
-			<App />
+			<App></App>
 		</AuthContextProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
