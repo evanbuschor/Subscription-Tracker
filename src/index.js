@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import App from "./components/App";
 import WebFont from "webfontloader";
+import { AuthContextProvider } from "./context/AuthContext.js";
 
 WebFont.load({
 	google: {
@@ -11,7 +12,9 @@ WebFont.load({
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App></App>
+		<AuthContextProvider>
+			<App></App>
+		</AuthContextProvider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

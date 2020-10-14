@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Auth.css";
-import fire from "./fire";
+import { AuthContext } from "../../context/AuthContext.js";
 
 const Auth = () => {
+	const { firebaseApp } = useContext(AuthContext);
 	const [user, setUser] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -25,9 +26,9 @@ const Auth = () => {
 	};
 
 	const handleLogin = () => {
-		console.log(email, password);
 		clearErrors();
-		fire.auth()
+		firebaseApp
+			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.catch((error) => {
 				console.log(error);
@@ -43,12 +44,13 @@ const Auth = () => {
 						break;
 				}
 			});
-		console.log(fire.auth.user);
+		clearInputs();
 	};
 
 	const handleSignup = () => {
 		clearErrors();
-		fire.auth()
+		firebaseApp
+			.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.catch((error) => {
 				// eslint-disable-next-line default-case
@@ -62,27 +64,7 @@ const Auth = () => {
 						break;
 				}
 			});
-	};
-
-	const authListener = () => {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				clearInputs();
-				setUser(user);
-			} else {
-				setUser("");
-			}
-		});
-
-		console.log("user", user);
-	};
-
-	useEffect(() => {
-		authListener();
-	});
-
-	const handleLogout = () => {
-		fire.auth().signOut();
+		clearInputs();
 	};
 
 	return (
@@ -90,7 +72,7 @@ const Auth = () => {
 			<label>Email:</label>
 
 			<input
-				className="log-in__input"
+				className="Auth__input"
 				value={email}
 				onChange={(e) => {
 					setEmail(e.target.value);
@@ -101,7 +83,7 @@ const Auth = () => {
 			<label>Password:</label>
 
 			<input
-				className="log-in__input"
+				className="Auth__input"
 				value={password}
 				onChange={(e) => {
 					setPassword(e.target.value);
@@ -109,50 +91,22 @@ const Auth = () => {
 				type="password"></input>
 			<p>{passwordError}</p>
 
-			<div className="log-in__button-group">
-				{hasAccount ? (
-					<button
-						className="log-in__button"
-						onClick={(e) => {
-							handleLogin();
-						}}>
-						Log In
-					</button>
-				) : (
-					<button
-						className="log-in__button"
-						onClick={(e) => {
-							handleSignup();
-						}}>
-						Sign Up
-					</button>
-				)}
+			<div className="Auth__button-group">
+				<button
+					className="Auth__button"
+					onClick={(e) => {
+						hasAccount ? handleLogin() : handleSignup();
+					}}>
+					{hasAccount ? "Log in" : "Sign Up"}
+				</button>
 			</div>
 
-			{hasAccount ? (
-				<p className="log-in__prompt">
-					Not a User?{" "}
-					<span
-						className="log-in__link-span"
-						onClick={toggleHasAccount}>
-						Sign up
-					</span>
-				</p>
-			) : (
-				<p className="log-in__prompt">
-					Already a user?{" "}
-					<span
-						className="log-in__link-span"
-						onClick={toggleHasAccount}>
-						Log in
-					</span>
-				</p>
-			)}
-
-			<button className="log-in__button" onClick={handleLogout}>
-				Log Out
-			</button>
-			<span>log in status: {user.email}</span>
+			<p className="Auth__prompt">
+				{hasAccount ? "Not a user? " : "Already a user? "}
+				<span className="Auth__link-span" onClick={toggleHasAccount}>
+					{hasAccount ? "Sign up" : "Log in"}
+				</span>
+			</p>
 		</div>
 	);
 };

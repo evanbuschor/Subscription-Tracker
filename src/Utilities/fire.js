@@ -1,6 +1,7 @@
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
-// Your web app's Firebase configuration
+// Firebase App config:
 var firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
 	authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
@@ -10,7 +11,8 @@ var firebaseConfig = {
 	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGINGSENDERID,
 	appId: process.env.REACT_APP_FIREBASE_APPID,
 };
-// Initialize Firebase
-const fire = firebase.initializeApp(firebaseConfig);
 
-export default fire;
+// Initialize Firebase
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+export default firebaseApp;
