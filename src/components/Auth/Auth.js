@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Auth.css";
-import firebaseApp from "../../Utilities/fire";
+import { AuthContext } from "../../context/AuthContext.js";
 
 const Auth = () => {
+	const { firebaseApp } = useContext(AuthContext);
 	const [user, setUser] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -43,6 +44,7 @@ const Auth = () => {
 						break;
 				}
 			});
+		clearInputs();
 	};
 
 	const handleSignup = () => {
@@ -62,27 +64,7 @@ const Auth = () => {
 						break;
 				}
 			});
-	};
-
-	const authListener = () => {
-		firebaseApp.auth().onAuthStateChanged((user) => {
-			if (user) {
-				clearInputs();
-				setUser(user);
-			} else {
-				setUser("");
-			}
-		});
-
-		console.log("user", user);
-	};
-
-	useEffect(() => {
-		authListener();
-	}, []);
-
-	const handleLogout = () => {
-		firebaseApp.auth().signOut();
+		clearInputs();
 	};
 
 	return (
@@ -110,23 +92,13 @@ const Auth = () => {
 			<p>{passwordError}</p>
 
 			<div className="Auth__button-group">
-				{hasAccount ? (
-					<button
-						className="Auth__button"
-						onClick={(e) => {
-							handleLogin();
-						}}>
-						Log In
-					</button>
-				) : (
-					<button
-						className="Auth__button"
-						onClick={(e) => {
-							handleSignup();
-						}}>
-						Sign Up
-					</button>
-				)}
+				<button
+					className="Auth__button"
+					onClick={(e) => {
+						hasAccount ? handleLogin() : handleSignup();
+					}}>
+					{hasAccount ? "Log in" : "Sign Up"}
+				</button>
 			</div>
 
 			<p className="Auth__prompt">
@@ -135,11 +107,6 @@ const Auth = () => {
 					{hasAccount ? "Sign up" : "Log in"}
 				</span>
 			</p>
-
-			<button className="Auth__button" onClick={handleLogout}>
-				Log Out
-			</button>
-			<span>log in status: {user.email}</span>
 		</div>
 	);
 };
