@@ -1,13 +1,24 @@
-.nav {
+.menu {
 	background-color: #fed766;
-	height: 60px;
+	height: 50px;
 	display: flex;
-	align-items: center;
+	flex-direction: row;
 	width: 100vw;
+	list-style: none;
+	align-items: center;
+	padding: 0 15px 0 15px;
+	border: 1px solid red;
 }
 
-.nav__title {
-	padding-left: 12px;
-	color: #13293d;
-	font-weight: 600;
+.menu__title {
+	margin-right: 15px;
+}
+
+.menu__link {
+	margin-right: 8px;
+	font-size: 12px;
+}
+
+.menu__button {
+	margin-left: auto;
 }

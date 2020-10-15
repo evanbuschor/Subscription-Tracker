@@ -6,6 +6,7 @@ import "./App.css";
 import Nav from "./Nav.js";
 import Auth from "./Auth/Auth.js";
 import Home from "./Home.js";
+import Subscriptions from "./Subscriptions/Subscriptions.js";
 import PrivateRoute from "./PrivateRoute.js";
 import { AuthContext } from "../context/AuthContext";
 import PublicOnlyRoute from "./PublicOnlyRoute";
@@ -18,11 +19,13 @@ function App() {
 			<div className="app">
 				<Nav />
 				<PrivateRoute exact path="/" component={Home}></PrivateRoute>
+				<PrivateRoute
+					path="/subscriptions"
+					component={Subscriptions}></PrivateRoute>
 				<PublicOnlyRoute
 					path="/login"
 					component={Auth}></PublicOnlyRoute>
 			</div>
-			<div></div>
 		</Router>
 	);
 }

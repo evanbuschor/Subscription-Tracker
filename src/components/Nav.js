@@ -2,33 +2,32 @@ import React, { useContext } from "react";
 import "./Nav.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext.js";
+import Button from "@material-ui/core/Button";
 //import firebaseApp from "../Utilities/fire.js";
 
 const Nav = () => {
 	const { user, setUser, firebaseApp } = useContext(AuthContext);
 
-	const handleClick = () => {
-		console.log("Nav.js handleClick sign out button clicked");
+	const handleLogoutClick = () => {
 		firebaseApp.auth().signOut();
 	};
 
 	const logoutButton = () =>
-		!!user && (
-			<button className="nav__logout-button" onClick={handleClick}>
-				Log Out
-			</button>
-		);
+		!!user && <Button onClick={handleLogoutClick}>Log Out</Button>;
 
 	return (
-		<div className="nav">
+		<ul className="menu">
 			<Link to="/">
-				<h2 className="nav__title">Subscription Tracker</h2>
+				<li className="menu__title">Subscription Tracker</li>
 			</Link>
-			<Link to="/">Home</Link>
-			<Link to="/login">auth</Link>
-
-			{logoutButton()}
-		</div>
+			<Link to="/login">
+				<li className="menu__link">Login</li>
+			</Link>
+			<Link to="/subscriptions">
+				<li className="menu__link">Subscriptions</li>
+			</Link>
+			<li className="menu__button">{logoutButton()}</li>
+		</ul>
 	);
 };
 
